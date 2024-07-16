@@ -97,13 +97,13 @@ app.get("/events/types/:type", async (req, res) => {
 
 const readEventsByTitleAndTags = async (data) => {
   try {
-    const { title, tags } = data;
+    const { eventName, eventTags } = data;
     const events = await Event.find(
-      title
+      eventName
         ? {
-            eventName: title,
+            eventName: eventName,
           }
-        : { eventTags: tags ? tags.split(", ") : [] }
+        : { eventTags: eventTags }
     );
     return events;
   } catch (error) {
@@ -114,7 +114,7 @@ const readEventsByTitleAndTags = async (data) => {
 app.get("/events/search", async (req, res) => {
   try {
     const events = await readEventsByTitleAndTags(req.body);
-    if (events.length > 0) {
+    if (events) {
       res.json(events);
     } else {
       res.status(404).json({ error: "Event not Found" });
