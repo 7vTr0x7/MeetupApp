@@ -51,6 +51,28 @@ app.post("/events", async (req, res) => {
   }
 });
 
+const deleteEventById = async (id) => {
+  try {
+    const deletedEvent = await Event.findByIdAndDelete(id);
+    return deletedEvent;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+app.delete("/events:id", async (req, res) => {
+  try {
+    const deletedEvent = await deleteEventById(req.params.id);
+    if (deletedEvent) {
+      res.json(deletedEvent);
+    } else {
+      res.status(404).json({ error: "event not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to Delete ${error}` });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server Running on port:${PORT}`);
