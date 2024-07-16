@@ -1,7 +1,12 @@
 import React from "react";
+import Header from "./components/Header";
 
 const App = () => {
-  return <div className="bg-body-tertiary"></div>;
+  return (
+    <div className="bg-body-tertiary">
+      <Header />
+    </div>
+  );
 };
 
 export default App;
