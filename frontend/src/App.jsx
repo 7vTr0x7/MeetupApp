@@ -1,7 +1,7 @@
 import React from "react";
 
 const App = () => {
-  return <div></div>;
+  return <div className="bg-body-tertiary"></div>;
 };
 
 export default App;
