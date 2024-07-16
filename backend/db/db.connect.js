@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "D:backend/.env" });
+require("dotenv").config({ path: "D:/meetupapp/backend/.env" });
 const mongoose = require("mongoose");
 
 const mongoURI = process.env.MONGODB_URL;
