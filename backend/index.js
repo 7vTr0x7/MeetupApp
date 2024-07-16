@@ -73,6 +73,28 @@ app.delete("/events/:id", async (req, res) => {
   }
 });
 
+const readEventsByType = async (type) => {
+  try {
+    const events = await Event.find({ eventType: type });
+    return events;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+app.get("/events/types/:type", async (req, res) => {
+  try {
+    const events = await readEventsByType(req.params.type);
+    if (events.length > 0) {
+      res.json(events);
+    } else {
+      res.status(404).json({ error: "Events not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to get events: ${error}` });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server Running on port:${PORT}`);
