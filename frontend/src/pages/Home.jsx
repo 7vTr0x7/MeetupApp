@@ -46,13 +46,17 @@ const Home = () => {
         <div className="row ">
           {events.length > 0 &&
             events.map((event) => (
-              <div key={event._id} className="col-md-4  my-3  ">
+              <div key={event._id} className="col-md-4 my-3">
+                <span className="position-absolute z-3 bg-light rounded p-1 m-2 fw-semibold">
+                  {`${event.eventType} Event`}
+                </span>
                 <div className="card  border-0 bg-body-tertiary">
                   <img
                     className="card-img-top rounded w-75 "
                     alt={event.eventName}
                     src={event.eventImageURL}
                   />
+
                   <p className="fw-normal fs-6 p-0 m-0">{`${event.sessionTiming.fromDate} • ${event.sessionTiming.fromTime} IST`}</p>
                   <h4 className="fw-bold fs-4">{event.eventName}</h4>
                 </div>
