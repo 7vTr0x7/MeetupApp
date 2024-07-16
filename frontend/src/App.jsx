@@ -5,7 +5,6 @@ import Home from "./pages/Home";
 const App = () => {
   return (
     <div className="bg-body-tertiary">
-      <Header />
       <Home />
     </div>
   );

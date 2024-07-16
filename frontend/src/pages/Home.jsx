@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import logo from "../images/logo.png";
 
 const Home = () => {
   const [type, setType] = useState("Both");
@@ -31,6 +32,22 @@ const Home = () => {
   return (
     <>
       <div className="container py-3 ">
+        <img
+          src={logo}
+          alt="logo"
+          style={{ height: "70px", margin: "0", padding: "0" }}
+        />
+        <div className="float-end pt-4">
+          <form>
+            <div className="input-group ">
+              <input
+                placeholder="⌕ Search by title and t..."
+                className="form-control"
+              />
+            </div>
+          </form>
+        </div>
+        <hr />
         <div className="float-end py-2">
           <select
             className="form-select"
