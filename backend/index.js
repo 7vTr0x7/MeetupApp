@@ -104,15 +104,12 @@ app.get("/events/types/:type", async (req, res) => {
   }
 });
 
-const readEventsByTitleAndTags = async (data) => {
+const readEventsByTitleAndTags = async (title) => {
   try {
-    const { eventName, eventTags } = data;
     const events = await Event.find(
-      eventName
-        ? {
-            eventName: eventName,
-          }
-        : { eventTags: eventTags }
+      {
+        eventName: title,
+      } || { eventTags: title }
     );
     return events;
   } catch (error) {
@@ -120,9 +117,9 @@ const readEventsByTitleAndTags = async (data) => {
   }
 };
 
-app.get("/events/search", async (req, res) => {
+app.get("/events/search/:title", async (req, res) => {
   try {
-    const events = await readEventsByTitleAndTags(req.body);
+    const events = await readEventsByTitleAndTags(req.params.title);
     if (events) {
       res.json(events);
     } else {

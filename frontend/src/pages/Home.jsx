@@ -5,6 +5,8 @@ const Home = () => {
   const [type, setType] = useState("Both");
   const [events, setEvents] = useState([]);
 
+  const [search, setSearch] = useState("");
+
   const fetchEvents = async () => {
     try {
       const response =
@@ -29,6 +31,21 @@ const Home = () => {
     fetchEvents();
   }, [type]);
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`http://localhost:4000/events/search`);
+
+      if (!response.ok) {
+        console.log("Failed to get searched data");
+      }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div className="container py-3 ">
@@ -38,11 +55,13 @@ const Home = () => {
           style={{ height: "70px", margin: "0", padding: "0" }}
         />
         <div className="float-end pt-4">
-          <form>
+          <form onSubmit={submitHandler}>
             <div className="input-group ">
               <input
                 placeholder="⌕ Search by title and t..."
                 className="form-control"
+                type="text"
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
           </form>
