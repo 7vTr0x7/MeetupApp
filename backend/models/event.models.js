@@ -7,7 +7,7 @@ const eventSchema = new mongoose.Schema({
   },
   eventType: {
     type: String,
-    enum: ["Online", "Offline", "Both"],
+    enum: ["Online", "Offline"],
     required: true,
   },
   hostedBy: {
