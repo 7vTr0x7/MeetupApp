@@ -4,6 +4,15 @@ app.use(express.json());
 const { initializeDatabase } = require("./db/db.connect");
 const Event = require("./models/event.models");
 
+const cors = require("cors");
+
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 initializeDatabase();
 
 const readAllEvents = async () => {
