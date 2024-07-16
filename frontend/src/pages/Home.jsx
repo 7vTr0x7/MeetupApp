@@ -7,6 +7,8 @@ const Home = () => {
 
   const [search, setSearch] = useState("");
 
+  const [notFound, setNotFound] = useState(false);
+
   const fetchEvents = async () => {
     try {
       const response =
@@ -35,16 +37,22 @@ const Home = () => {
     e.preventDefault();
     try {
       if (search) {
+        const capital = search.charAt(0).toUpperCase();
+        const text = `${capital}${search.slice(1)}`;
         const response = await fetch(
-          `http://localhost:4000/events/search/${search}`
+          `http://localhost:4000/events/search/${text}`
         );
 
         if (!response.ok) {
           console.log("Failed to get searched data");
         }
         const data = await response.json();
-        setEvents(data);
-        console.log(data);
+        if (data && data.length > 0) {
+          setEvents(data);
+          setNotFound(false);
+        } else {
+          setNotFound(true);
+        }
       } else {
         fetchEvents();
       }
@@ -85,6 +93,10 @@ const Home = () => {
           </select>
         </div>
         <h1 className="fw-bold">Meetup Events</h1>
+
+        {notFound && (
+          <h2 className="text-center fw-fw-semibold">Event Not Found</h2>
+        )}
 
         <div className="row ">
           {events.length > 0 &&
