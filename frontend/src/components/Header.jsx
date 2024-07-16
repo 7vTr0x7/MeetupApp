@@ -20,8 +20,8 @@ const Header = () => {
             </div>
           </form>
         </div>
+        <hr />
       </div>
-      <hr />
     </header>
   );
 };
