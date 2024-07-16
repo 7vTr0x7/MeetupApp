@@ -15,7 +15,7 @@ const readAllEvents = async () => {
   }
 };
 
-app.get("/", async (req, res) => {
+app.get("/events", async (req, res) => {
   try {
     const events = await readAllEvents();
     if (events.length > 0) {
@@ -25,6 +25,29 @@ app.get("/", async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ error: `failed to get events: ${error}` });
+  }
+});
+
+const createEvent = async (event) => {
+  try {
+    const newEvent = await Event(event);
+    const savedEvent = newEvent.save();
+    return savedEvent;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+app.post("/events", async (req, res) => {
+  try {
+    const savedEvent = await createEvent(req.body);
+    if (savedEvent) {
+      res.status(200).json(savedEvent);
+    } else {
+      res.status(404).json({ error: "Event not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to create event : ${error}` });
   }
 });
 
