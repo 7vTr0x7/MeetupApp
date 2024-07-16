@@ -60,7 +60,7 @@ const deleteEventById = async (id) => {
   }
 };
 
-app.delete("/events:id", async (req, res) => {
+app.delete("/events/:id", async (req, res) => {
   try {
     const deletedEvent = await deleteEventById(req.params.id);
     if (deletedEvent) {
