@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Home = () => {
   const [type, setType] = useState("Both");
+  const [events, setEvents] = useState([]);
 
   const fetchEvents = async () => {
     try {
@@ -15,12 +16,18 @@ const Home = () => {
       }
 
       const data = await response.json();
-      console.log(data);
+      setEvents(data);
     } catch (error) {
       console.log("Failed to get data", error);
     }
   };
-  fetchEvents();
+
+  console.log(events);
+
+  useEffect(() => {
+    fetchEvents();
+  }, [type]);
+
   return (
     <>
       <div className="container py-3 ">
@@ -36,7 +43,22 @@ const Home = () => {
         </div>
         <h1 className="fw-bold">Meetup Events</h1>
 
-        <div></div>
+        <div className="row ">
+          {events.length > 0 &&
+            events.map((event) => (
+              <div key={event._id} className="col-md-4  my-3  ">
+                <div className="card  border-0 bg-body-tertiary">
+                  <img
+                    className="card-img-top rounded w-75 "
+                    alt={event.eventName}
+                    src={event.eventImageURL}
+                  />
+                  <p className="fw-normal fs-6 p-0 m-0">{`${event.sessionTiming.fromDate} • ${event.sessionTiming.fromTime} IST`}</p>
+                  <h4 className="fw-bold fs-4">{event.eventName}</h4>
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
     </>
   );
