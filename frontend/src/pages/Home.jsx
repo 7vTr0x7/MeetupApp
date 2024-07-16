@@ -34,7 +34,9 @@ const Home = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:4000/events/search`);
+      const response = await fetch(
+        `http://localhost:4000/events/search/${search}`
+      );
 
       if (!response.ok) {
         console.log("Failed to get searched data");

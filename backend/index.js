@@ -106,12 +106,17 @@ app.get("/events/types/:type", async (req, res) => {
 
 const readEventsByTitleAndTags = async (title) => {
   try {
-    const events = await Event.find(
-      {
-        eventName: title,
-      } || { eventTags: title }
-    );
-    return events;
+    const events = await Event.find({
+      eventName: title,
+    });
+    if (events.length > 0) {
+      return events;
+    } else {
+      const tagEvents = await Event.find({
+        eventTags: title,
+      });
+      return tagEvents;
+    }
   } catch (error) {
     console.log(error);
   }
