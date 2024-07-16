@@ -95,7 +95,8 @@ const Home = () => {
                 </span>
                 <div className="card  border-0 bg-body-tertiary">
                   <img
-                    className="card-img-top rounded w-75 "
+                    className="card-img-top rounded"
+                    style={{ width: "90%" }}
                     alt={event.eventName}
                     src={event.eventImageURL}
                   />
