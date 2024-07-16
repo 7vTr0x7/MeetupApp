@@ -95,6 +95,35 @@ app.get("/events/types/:type", async (req, res) => {
   }
 });
 
+const readEventsByTitleAndTags = async (data) => {
+  try {
+    const { title, tags } = data;
+    const events = await Event.find(
+      title
+        ? {
+            eventName: title,
+          }
+        : { eventTags: tags ? tags.split(", ") : [] }
+    );
+    return events;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+app.get("/events/search", async (req, res) => {
+  try {
+    const events = await readEventsByTitleAndTags(req.body);
+    if (events.length > 0) {
+      res.json(events);
+    } else {
+      res.status(404).json({ error: "Event not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to get searched event: ${error}` });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server Running on port:${PORT}`);
