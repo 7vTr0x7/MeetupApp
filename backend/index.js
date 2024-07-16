@@ -133,6 +133,28 @@ app.get("/events/search", async (req, res) => {
   }
 });
 
+const updateImageUrl = async (id, data) => {
+  try {
+    const updatedEvent = await Event.findByIdAndUpdate(id, data, { new: true });
+    return updatedEvent;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+app.post("/events/:id", async (req, res) => {
+  try {
+    const updatedEvent = await updateImageUrl(req.params.id, req.body);
+    if (updatedEvent) {
+      res.json(updatedEvent);
+    } else {
+      res.status(404).json({ error: "Event not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: `Failed to update event: ${error}` });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server Running on port:${PORT}`);
