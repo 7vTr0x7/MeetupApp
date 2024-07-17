@@ -170,7 +170,7 @@ app.get("/events/:id", async (req, res) => {
   try {
     const event = await readEventById(req.params.id);
     if (event) {
-      res.json();
+      res.json(event);
     } else {
       res.status(404).json({ error: "Event not Found" });
     }
