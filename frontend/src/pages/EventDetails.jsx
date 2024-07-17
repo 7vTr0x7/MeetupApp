@@ -170,7 +170,7 @@ const EventDetails = () => {
                             <img
                               alt={speaker.name}
                               src={speaker.imageUrl}
-                              style={{ width: "45%", height: "60px" }}
+                              style={{ width: "43%", height: "60px" }}
                               className="img-fluid rounded-circle"
                             />
                           </span>
