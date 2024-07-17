@@ -157,6 +157,28 @@ app.post("/events/:id", async (req, res) => {
   }
 });
 
+const readEventById = async (id) => {
+  try {
+    const event = await Event.findById(id);
+    return event;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+app.get("/events/:id", async (req, res) => {
+  try {
+    const event = await readEventById(req.params.id);
+    if (event) {
+      res.json();
+    } else {
+      res.status(404).json({ error: "Event not Found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Failed to get event" });
+  }
+});
+
 const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server Running on port:${PORT}`);

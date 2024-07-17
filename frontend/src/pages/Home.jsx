@@ -54,6 +54,7 @@ const Home = () => {
           setNotFound(true);
         }
       } else {
+        setNotFound(false);
         fetchEvents();
       }
     } catch (error) {
