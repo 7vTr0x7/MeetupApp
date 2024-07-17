@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import logo from "../images/logo.png";
 import { useNavigate, useParams } from "react-router-dom";
+import { FaRegClock } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { FaIndianRupeeSign } from "react-icons/fa6";
 
 const EventDetails = () => {
   const [event, setEvent] = useState(undefined);
@@ -89,24 +92,93 @@ const EventDetails = () => {
               <div className="float-end">
                 <div
                   style={{ backgroundColor: "white" }}
-                  className="p-4 rounded">
+                  className="px-4 py-4 rounded">
                   <div className="d-flex">
-                    <span style={{ paddingTop: "12px", paddingRight: "5px" }}>
-                      {"🕑"}
+                    <span style={{ paddingTop: "12px", paddingRight: "10px" }}>
+                      <FaRegClock />
                     </span>
                     <div>
-                      <p className="m-0">{`${event.sessionTiming.fromDate} at ${event.sessionTiming.fromTime} to`}</p>
-                      <p className="m-0">{`${event.sessionTiming.toDate} at ${event.sessionTiming.toTime}`}</p>
+                      <p
+                        className="m-0"
+                        style={{
+                          fontSize: "20px",
+                        }}>{`${event.sessionTiming.fromDate} at ${event.sessionTiming.fromTime} to`}</p>
+                      <p
+                        style={{
+                          fontSize: "20px",
+                        }}
+                        className="m-0">{`${event.sessionTiming.toDate} at ${event.sessionTiming.toTime}`}</p>
                     </div>
                   </div>
-                  <div className="d-flex">
-                    <span style={{ paddingTop: "12px", paddingRight: "5px" }}>
-                      {"🕑"}
+                  <div className="d-flex py-4">
+                    <span style={{ paddingTop: "12px", paddingRight: "10px" }}>
+                      <FaLocationDot />
                     </span>
                     <div>
-                      <p className="m-0">{`${event.sessionTiming.fromDate} at ${event.sessionTiming.fromTime} to`}</p>
-                      <p className="m-0">{`${event.sessionTiming.toDate} at ${event.sessionTiming.toTime}`}</p>
+                      <p
+                        style={{
+                          fontSize: "20px",
+                        }}
+                        className="m-0">{`${event.address.location}`}</p>
+                      <p
+                        style={{
+                          fontSize: "20px",
+                        }}
+                        className="m-0">{`${event.address.venue}`}</p>
                     </div>
+                  </div>
+                  <div>
+                    {event.isPaid ? (
+                      <div className="d-flex">
+                        <span style={{ paddingRight: "10px" }}>
+                          <FaIndianRupeeSign />
+                        </span>
+                        <p
+                          style={{
+                            fontSize: "20px",
+                          }}
+                          className="m-0">{`${event.price}`}</p>
+                      </div>
+                    ) : (
+                      <div className="d-flex">
+                        <span style={{ paddingRight: "10px" }}>
+                          <FaIndianRupeeSign />
+                        </span>
+                        <p
+                          style={{
+                            fontSize: "20px",
+                          }}
+                          className="m-0">{`Free`}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="py-4 ">
+                  <h3 className="fs-4 fw-bold pt-2">
+                    Speakers: ({event.speakers.length})
+                  </h3>
+                  <div className="row py-4">
+                    {event.speakers.map((speaker) => (
+                      <div
+                        key={speaker.imageUrl}
+                        className="col-md-5 text-center rounded mx-3 card border-0 py-3"
+                        style={{
+                          backgroundColor: "white",
+                        }}>
+                        <div>
+                          <span>
+                            <img
+                              alt={speaker.name}
+                              src={speaker.imageUrl}
+                              style={{ width: "45%", height: "60px" }}
+                              className="img-fluid rounded-circle"
+                            />
+                          </span>
+                          <p className="fw-bold m-0">{speaker.name}</p>
+                          <span>{speaker.title}</span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
