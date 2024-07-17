@@ -64,6 +64,10 @@ const eventSchema = new mongoose.Schema({
       required: true,
     },
   ],
+  address: {
+    location: { type: String },
+    venue: { type: String },
+  },
 });
 
 const Event = mongoose.model("Event", eventSchema);
