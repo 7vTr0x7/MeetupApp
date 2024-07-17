@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../images/logo.png";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [type, setType] = useState("Both");
@@ -8,6 +9,8 @@ const Home = () => {
   const [search, setSearch] = useState("");
 
   const [notFound, setNotFound] = useState(false);
+
+  const navigate = useNavigate();
 
   const fetchEvents = async () => {
     try {
@@ -102,7 +105,11 @@ const Home = () => {
         <div className="row ">
           {events.length > 0 &&
             events.map((event) => (
-              <div key={event._id} className="col-md-4 my-3">
+              <div
+                key={event._id}
+                style={{ cursor: "pointer" }}
+                className="col-md-4 my-3"
+                onClick={() => navigate(`/${event._id}`)}>
                 <span className="position-absolute z-3 bg-light rounded p-1 m-2 fw-semibold">
                   {`${event.eventType} Event`}
                 </span>
